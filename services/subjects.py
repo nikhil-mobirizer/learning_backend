@@ -16,7 +16,7 @@ def get_all_subjects(db: Session, limit: int = 10, name: str = None):
 
 # Create a new subject in the database
 def create_subject(db: Session, subject: SubjectCreate, class_id: int):
-    db_subject = Subject(name=subject.name, class_id=class_id)
+    db_subject = Subject(name=subject.name, class_id=class_id, tagline=subject.tagline)
     db.add(db_subject)
     db.commit()
     db.refresh(db_subject)

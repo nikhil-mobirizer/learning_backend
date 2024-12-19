@@ -14,10 +14,11 @@ router = APIRouter()
 def create_chapter(
     subject_id: int = Form(...),
     name: str = Form(...),
+    tagline: Optional[str] = Form(None),
     db: Session = Depends(get_db),
     current_user: str = Depends(get_current_user),  
 ):
-    chapter = schemas.ChapterCreate(name=name)
+    chapter = schemas.ChapterCreate(name=name, tagline=tagline)
     db_chapter = services.chapters.create_chapter(db=db, chapter=chapter, subject_id=subject_id)
     
     if not db_chapter:

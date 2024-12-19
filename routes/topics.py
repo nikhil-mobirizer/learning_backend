@@ -12,13 +12,14 @@ router = APIRouter()
 def create_topic(
     name: str = Form(...), 
     chapter_id: int = Form(...), 
+    tagline: Optional[str] = Form(None),
     details: Optional[str] = Form(None), 
     db: Session = Depends(get_db),
     current_user: str = Depends(get_current_user), 
 ):
     print(f"Details received: {details}")
 
-    topic = schemas.TopicCreate(name=name, details=details)
+    topic = schemas.TopicCreate(name=name, details=details, tagline=tagline)
     
     db_topic = services.topics.create_topic(db=db, topic=topic, chapter_id=chapter_id)
 

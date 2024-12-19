@@ -17,12 +17,6 @@ def get_all_classes(db: Session, limit: int = 10, name: str = None):
     
     return query.limit(limit).all()
 
-# def get_classes_by_name(db: Session, name: str, limit: int = 10):
-#     query = db.query(Class)
-#     if name:  # If a name is provided, filter the results
-#         query = query.filter(Class.name.ilike(f"%{name}%"))  # Case-insensitive search
-#     return query.limit(limit).all()
-
 
 def create_class(db: Session, class_: ClassCreate):
     # Check for duplicate class name
@@ -31,9 +25,15 @@ def create_class(db: Session, class_: ClassCreate):
         raise HTTPException(status_code=400, detail="Class already exists")
 
     # Create new class
-    db_class = Class(name=class_.name)
+    db_class = Class(name=class_.name, tagline=class_.tagline)
     db.add(db_class)
     db.commit()
     db.refresh(db_class)
     return db_class
 
+
+# def get_classes_by_name(db: Session, name: str, limit: int = 10):
+#     query = db.query(Class)
+#     if name:  # If a name is provided, filter the results
+#         query = query.filter(Class.name.ilike(f"%{name}%"))  # Case-insensitive search
+#     return query.limit(limit).all()

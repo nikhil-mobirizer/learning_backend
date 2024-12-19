@@ -20,5 +20,5 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
         if user_id is None:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
         return {"id": user_id, "username": payload.get("username")}
-    except jwt.PyJWTError:
+    except JWTError:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")

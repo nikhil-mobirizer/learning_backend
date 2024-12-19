@@ -1,11 +1,10 @@
 from pydantic import BaseModel, EmailStr
 from typing import Optional, Dict, List
 
-
-
 class TopicBase(BaseModel):
     name: str
     details: Optional[str] = None
+    tagline: Optional[str] = None 
     
 class TopicCreate(TopicBase):
     pass
@@ -14,17 +13,18 @@ class TopicData(TopicBase):
     id: int
     name: str
     details: Optional[str] = None
+    tagline: Optional[str] = None 
+
 
 class Topic(TopicBase):
     id: int
-
 
     class Config:
         orm_mode = True
 
 class ChapterBase(BaseModel):
-    id: int
     name: str
+    tagline: Optional[str] = None 
 
 class ChapterCreate(ChapterBase):
     pass
@@ -32,6 +32,8 @@ class ChapterCreate(ChapterBase):
 class ChapterData(ChapterBase):
     id: int
     name: str
+    tagline: Optional[str] = None 
+
 
 class Chapter(ChapterBase):
     id: int
@@ -43,6 +45,7 @@ class Chapter(ChapterBase):
 
 class SubjectBase(BaseModel):
     name: str
+    tagline: Optional[str] = None 
 
 class SubjectCreate(SubjectBase):
     pass
@@ -50,6 +53,8 @@ class SubjectCreate(SubjectBase):
 class SubjectData(SubjectBase):
     id: int
     name: str
+    tagline: Optional[str] = None 
+
 
 class Subject(SubjectBase):
     id: int
@@ -60,12 +65,14 @@ class Subject(SubjectBase):
 
 class ClassBase(BaseModel):
     name: str
+    tagline: Optional[str] = None 
 
 class ClassCreate(ClassBase):
     pass
 
 class ClassData(ClassBase):
     id: int
+    tagline: Optional[str] = None 
     subjects: list[Subject] = []
 
 class Class(ClassBase):
@@ -76,10 +83,10 @@ class Class(ClassBase):
 
 
 
-class GoogleSignInRequest(BaseModel):
-    device_id: str
-    email: EmailStr
-    name: str
+# class GoogleSignInRequest(BaseModel):
+#     device_id: str
+#     email: EmailStr
+#     name: str
 
 class ResponseModel(BaseModel):
     message: str

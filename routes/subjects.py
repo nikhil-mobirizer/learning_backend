@@ -11,12 +11,13 @@ router = APIRouter()
 
 @router.post("/", response_model=schemas.Subject)
 def create_subject(
-    name: str = Form(...), 
+    name: str = Form(...),
+    tagline: Optional[str] = Form(None),
     class_id: int = Form(...), 
     db: Session = Depends(get_db),
     current_user: str = Depends(get_current_user), 
 ):
-    subject = schemas.SubjectCreate(name=name)
+    subject = schemas.SubjectCreate(name=name, tagline=tagline)
     
     db_subject = services.subjects.create_subject(db=db, subject=subject, class_id=class_id)
 
