@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Date, DateTime, Bool
 from sqlalchemy.orm import relationship
 from database import Base
 from datetime import datetime
+import uuid
 
 class Class(Base):
     __tablename__ = "classes"
@@ -37,27 +38,19 @@ class Topic(Base):
     chapter_id = Column(Integer, ForeignKey("chapters.id"))
     chapter = relationship("Chapter", back_populates="topics")
 
-# # User model
-# class User(Base):
-#     __tablename__ = "users"
-#     user_id = Column(String, primary_key=True, index=True)
-#     device_id = Column(String, unique=True, index=True)
-#     name = Column(String, nullable=True)
-#     mobile_number = Column(String, unique=True, index=True)
-#     otp = Column(String, nullable=True)
-#     is_varified = Column(Boolean, default=False)
-#     email = Column(String, nullable=True)
-#     date_of_birth = Column(Date, nullable=True)
-#     occupation = Column(String, nullable=True)
-#     image_link = Column(String, nullable=True)
-
+# User model
 class User(Base):
     __tablename__ = "users"
-    
-    user_id = Column(Integer, primary_key=True, autoincrement=True) 
-    mobile_number = Column(String, unique=True, index=True)
+    user_id = Column(String, primary_key=True,default=lambda: str(uuid.uuid4()), index=True)
+    device_id = Column(String, unique=True, index=True)
+    name = Column(String, nullable=True)
+    mobile_number = Column(String, unique=True, index=True, nullable=False)
     otp = Column(String, nullable=True)
     is_verified = Column(Boolean, default=False)
+    email = Column(String, nullable=True)
+    date_of_birth = Column(Date, nullable=True)
+    occupation = Column(String, nullable=True)
+    image_link = Column(String, nullable=True)
 
 
 class ChatHistory(Base):
